@@ -1,0 +1,24 @@
+<h1>Images</h1>
+
+<% @images.each do |image| %>
+  <%# Привязываем к каждой секции свой контроллер 'Images' data: {...} %>
+  <%= tag.section class: 'my-5', data: { controller: 'images toast', action: 'images:copy->toast#show',
+                                         'images-loading-class': 'disabled',
+                                         'images-id-value': image.id } do %>
+    <%# Привязываем действие к контроллеру data: {...} %>
+    <%= image_tag image.url, class: 'img-thumbnail rounded d-block', alt: image.title,
+                  data: { 'action': 'click->images#getUrl',
+                          # Маркируем элемент, чтобы в дальнейшем можно было его найти для вывода title
+                          'images-target': 'image'} %>
+  <% end %>
+<% end %>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="copyToast" class="toast">
+    <div class="toast-header">
+      <strong class="me-auto">Ссылка на изображение</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">Text</div>
+  </div>
+</div>
