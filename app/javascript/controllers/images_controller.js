@@ -1,4 +1,5 @@
-import {Controller} from "@hotwired/stimulus";
+import { Controller } from "@hotwired/stimulus";
+import { patch} from "@rails/request.js";
 
 export default class extends Controller {
     // Добаляем таргет image из котрого достанем title для картинки
@@ -41,9 +42,14 @@ export default class extends Controller {
         // Добавляем класс загрузки для title
         e.target.classList.add(this.loadingClass)
 
-        const formData = new FormData()
-        formData.append('image[title]', this.titleTarget.textContent)
-        await this.doPatch(`/api/images/${this.idValue}`, formData)
+        // const formData = new FormData()
+        // formData.append('image[title]', this.titleTarget.textContent)
+
+        await this.doPatch(`/api/images/${this.idValue}`, JSON.stringify({
+            image: {
+                title: this.titleTarget.textContent
+            }
+        }))
         // Удаляем кнопку
         e.target.remove()
     }
@@ -54,14 +60,22 @@ export default class extends Controller {
         this.dispatch('copy', {detail: {content: 'Image URL copied to clipboard!'}})
     }
 
+    // async doPatch(url, body) {
+    //     const csrfToken = document.getElementsByName('csrf-token')[0].content
+    //     await fetch(url, {
+    //         method: 'PATCH',
+    //         body: body,
+    //         headers: {
+    //             "X-CSRF-Token": csrfToken,
+    //         }
+    //     })
+    // }
+
     async doPatch(url, body) {
-        const csrfToken = document.getElementsByName('csrf-token')[0].content
-        await fetch(url, {
-            method: 'PATCH',
-            body: body,
-            headers: {
-                "X-CSRF-Token": csrfToken,
-            }
-        })
+        const response = await patch(url, {body: body})
+
+        if (!response.ok) {
+           raise('failed')
+        }
     }
 }

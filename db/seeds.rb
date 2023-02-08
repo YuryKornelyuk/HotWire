@@ -9,3 +9,8 @@
 20.times do
   Image.create title: FFaker::Name.last_name, url: FFaker::Image.url
 end
+
+20.times do
+  Folder.create title: FFaker::CheesyLingo.word,
+                description: FFaker::Lorem.sentence
+end

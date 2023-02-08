@@ -1,0 +1,15 @@
+<!--Обрамляем весь контент внутри тега <turbo-frame> , чтобы Turbo Streams мог обновлять его без перезагрузки страницы.-->
+<%= turbo_frame_tag folder do %>
+  <section class="mb-4">
+    <h2><%= link_to folder.title, folder_path(folder),
+                    # Этим параметром мы перерисовываем страницу целиком, а не фрейм.
+                    # '_top' указывает, что необходимо изменить также и URL
+                    data: {turbo_frame: '_top'} %></h2>
+
+    <p><%= folder.description %></p>
+
+    <%= link_to 'Edit', edit_folder_path(folder), class: 'btn btn-primary' %>
+    <%= link_to 'Delete', folder_path(folder), class: 'btn btn-danger',
+                data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'} %>
+  </section>
+<% end %>

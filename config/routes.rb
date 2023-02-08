@@ -4,6 +4,8 @@ Rails.application.routes.draw do
     resources :images, only: :update
   end
 
+  resources :folders
+
   # Defines the root path route ("/")
   root 'images#index'
 end
