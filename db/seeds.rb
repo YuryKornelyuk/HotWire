@@ -6,11 +6,31 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-20.times do
-  Image.create title: FFaker::Name.last_name, url: FFaker::Image.url
+def seed_images
+  20.times do
+    Image.create title: FFaker::Name.last_name, url: FFaker::Image.url
+  end
 end
 
-20.times do
-  Folder.create title: FFaker::CheesyLingo.word,
-                description: FFaker::Lorem.sentence
+def seed_folders
+  20.times do
+    Folder.create title: FFaker::CheesyLingo.word,
+                  description: FFaker::Lorem.sentence
+  end
 end
+
+def seed_notes
+  10.times do
+    Note.create title: FFaker::CheesyLingo.word,
+                description: FFaker::Lorem.sentence
+  end
+end
+
+def seed_user
+  User.create name: FFaker::Name.name
+end
+
+# seed_images
+# seed_folders
+# seed_notes
+# seed_user
