@@ -39,4 +39,4 @@
 .bin
 bin
 vendor/bundle
-
+!/db/transfer_data.yml

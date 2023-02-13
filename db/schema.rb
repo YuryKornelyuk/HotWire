@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_09_163927) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_10_150217) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bookmarks", force: :cascade do |t|
+    t.string "title"
+    t.string "url"
+    t.bigint "folder_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["folder_id"], name: "index_bookmarks_on_folder_id"
+  end
 
   create_table "folders", force: :cascade do |t|
     t.string "title"
@@ -45,5 +54,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_09_163927) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "bookmarks", "folders"
   add_foreign_key "notes", "users"
 end
