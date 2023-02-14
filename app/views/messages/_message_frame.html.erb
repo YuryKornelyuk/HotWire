@@ -1,0 +1,4 @@
+<!--В данном паршеле мы используем turbo_frame_tag для создания фрейма, а само сообщение будет подгружено позже-->
+<!--с помощью JS и метода show-->
+
+<%= turbo_frame_tag message, src: message_path(message, frame: true) %>

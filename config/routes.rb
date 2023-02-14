@@ -13,6 +13,12 @@ Rails.application.routes.draw do
     resources :bookmarks
   end
 
+  resources :rooms, only: %i[index show]
+
+  resources :messages, only: %i[create show update] do
+    resources :likes, only: %i[create destroy]
+  end
+
   # Defines the root path route ("/")
   root 'images#index'
 end

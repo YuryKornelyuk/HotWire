@@ -26,11 +26,20 @@ def seed_notes
   end
 end
 
-def seed_user
-  User.create name: FFaker::Name.name
+def seed_users
+  10.times do
+    User.create name: FFaker::Name.name
+  end
 end
 
-# seed_images
-# seed_folders
-# seed_notes
-# seed_user
+def seed_rooms
+  5.times do |i|
+    Room.create title: "#{FFaker::CheesyLingo.word} #{i + 1}"
+  end
+end
+
+seed_images
+seed_folders
+seed_notes
+seed_users
+seed_rooms
